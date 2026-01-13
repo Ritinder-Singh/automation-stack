@@ -45,16 +45,17 @@ services:
   # n8n (workflow orchestration)
   # -------------------------------
   n8n:
-    image: docker.io/n8nio/n8n:latest
+    image: automation-n8n:latest
     container_name: n8n
     restart: unless-stopped
 
     depends_on:
-      postgres:
-        condition: service_healthy
+      - postgres
+
+    env_file:
+      - .env
 
     environment:
-      # Database
       DB_TYPE: postgresdb
       DB_POSTGRESDB_HOST: postgres
       DB_POSTGRESDB_PORT: 5432
@@ -62,43 +63,15 @@ services:
       DB_POSTGRESDB_USER: n8n
       DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD}
 
-      # Runtime
-      N8N_HOST: localhost
-      N8N_PORT: 5678
-      N8N_PROTOCOL: http
       NODE_ENV: production
       GENERIC_TIMEZONE: UTC
-
-      # Execution data retention
-      EXECUTIONS_DATA_SAVE_ON_SUCCESS: "none"
-      EXECUTIONS_DATA_SAVE_ON_ERROR: "all"
-      EXECUTIONS_DATA_PRUNE: "true"
-      EXECUTIONS_DATA_MAX_AGE: 168
 
     volumes:
       - n8n_data:/home/node/.n8n
 
-    healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:5678/healthz || exit 1"]
-      interval: 30s
-      timeout: 5s
-      retries: 5
-
-    deploy:
-      resources:
-        limits:
-          memory: 1024M
-        reservations:
-          memory: 512M
-
-    logging:
-      driver: journald
-      options:
-        max-size: "20m"
-        max-file: "3"
-
     ports:
-      - "127.0.0.1:5678:5678"
+      - "192.168.1.9:5678:5678"
+
 
 
   # -------------------------------
