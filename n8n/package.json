@@ -1,0 +1,13 @@
+{
+  "name": "n8n-custom-modules",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Custom Node.js modules for n8n",
+
+  "dependencies": {
+    "axios": "^1.6.0",
+    "lodash": "^4.17.21",
+    "dayjs": "^1.11.10",
+    "uuid": "^9.0.1"
+  }
+}
