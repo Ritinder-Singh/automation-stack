@@ -1,0 +1,7 @@
+[Unit]
+Description=Automation Stack Backup
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/automation-stack/backups/scripts
+ExecStart=/usr/bin/bash backup_all.sh

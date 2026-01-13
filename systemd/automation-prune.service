@@ -1,0 +1,7 @@
+[Unit]
+Description=Automation Stack Podman Prune
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/automation-stack/maintenance
+ExecStart=/usr/bin/bash prune_podman.sh

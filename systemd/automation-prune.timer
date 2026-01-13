@@ -1,0 +1,9 @@
+[Unit]
+Description=Daily Podman prune for automation stack
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target
